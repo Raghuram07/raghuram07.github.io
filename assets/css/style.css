@@ -1587,8 +1587,8 @@ align-items: stretch;}
 .col-padding {
   padding: 10px !important; }
 
-/* .js .animate-box {
-  opacity: 0; } */
+.js .animate-box {
+  opacity: 0; } 
 
 
 /* Buy me a coffe button css*/

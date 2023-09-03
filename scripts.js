@@ -627,7 +627,8 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
 	};
 
 	var owlCrouselFeatureSlide = function() {
-		$('.owl-carousel').owlCarousel({
+		if($.isFunction('owlCarousel')){
+			$('.owl-carousel').owlCarousel({
 			animateOut: 'fadeOut',
 		   animateIn: 'fadeIn',
 		   autoplay: true,
@@ -642,6 +643,7 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
 		      "<i class='icon-arrow-right3 owl-direction'></i>"
 	     	]
 		})
+	}
 	};
 
 	// Document on load.

@@ -268,7 +268,8 @@
 	};
 
 	var owlCrouselFeatureSlide = function() {
-		$('.owl-carousel').owlCarousel({
+		if($.isFunction('owlCarousel')){
+			$('.owl-carousel').owlCarousel({
 			animateOut: 'fadeOut',
 		   animateIn: 'fadeIn',
 		   autoplay: true,
@@ -283,6 +284,7 @@
 		      "<i class='icon-arrow-right3 owl-direction'></i>"
 	     	]
 		})
+	}
 	};
 
 	// Document on load.
