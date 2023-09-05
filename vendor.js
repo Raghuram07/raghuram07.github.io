@@ -8314,6 +8314,392 @@ var A11yModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./node_modules/@angular/cdk/esm5/accordion.es5.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@angular/cdk/esm5/accordion.es5.js ***!
+  \*********************************************************/
+/*! exports provided: CdkAccordionItem, CdkAccordion, CdkAccordionModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CdkAccordionItem", function() { return CdkAccordionItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CdkAccordion", function() { return CdkAccordion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CdkAccordionModule", function() { return CdkAccordionModule; });
+/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/cdk/coercion */ "./node_modules/@angular/cdk/esm5/coercion.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/collections */ "./node_modules/@angular/cdk/esm5/collections.es5.js");
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Used to generate unique ID for each accordion.
+ */
+var /** @type {?} */ nextId = 0;
+/**
+ * Directive whose purpose is to manage the expanded state of CdkAccordionItem children.
+ */
+var CdkAccordion = /** @class */ (function () {
+    function CdkAccordion() {
+        /**
+         * Emits when the state of the accordion changes
+         */
+        this._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        /**
+         * Stream that emits true/false when openAll/closeAll is triggered.
+         */
+        this._openCloseAllActions = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        /**
+         * A readonly id value to use for unique selection coordination.
+         */
+        this.id = "cdk-accordion-" + nextId++;
+        this._multi = false;
+    }
+    Object.defineProperty(CdkAccordion.prototype, "multi", {
+        get: /**
+         * Whether the accordion should allow multiple expanded accordion items simultaneously.
+         * @return {?}
+         */
+        function () { return this._multi; },
+        set: /**
+         * @param {?} multi
+         * @return {?}
+         */
+        function (multi) { this._multi = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_0__["coerceBooleanProperty"])(multi); },
+        enumerable: true,
+        configurable: true
+    });
+    /** Opens all enabled accordion items in an accordion where multi is enabled. */
+    /**
+     * Opens all enabled accordion items in an accordion where multi is enabled.
+     * @return {?}
+     */
+    CdkAccordion.prototype.openAll = /**
+     * Opens all enabled accordion items in an accordion where multi is enabled.
+     * @return {?}
+     */
+    function () {
+        this._openCloseAll(true);
+    };
+    /** Closes all enabled accordion items in an accordion where multi is enabled. */
+    /**
+     * Closes all enabled accordion items in an accordion where multi is enabled.
+     * @return {?}
+     */
+    CdkAccordion.prototype.closeAll = /**
+     * Closes all enabled accordion items in an accordion where multi is enabled.
+     * @return {?}
+     */
+    function () {
+        this._openCloseAll(false);
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    CdkAccordion.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this._stateChanges.next(changes);
+    };
+    /**
+     * @return {?}
+     */
+    CdkAccordion.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.complete();
+    };
+    /**
+     * @param {?} expanded
+     * @return {?}
+     */
+    CdkAccordion.prototype._openCloseAll = /**
+     * @param {?} expanded
+     * @return {?}
+     */
+    function (expanded) {
+        if (this.multi) {
+            this._openCloseAllActions.next(expanded);
+        }
+    };
+    CdkAccordion.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"], args: [{
+                    selector: 'cdk-accordion, [cdkAccordion]',
+                    exportAs: 'cdkAccordion',
+                },] },
+    ];
+    /** @nocollapse */
+    CdkAccordion.propDecorators = {
+        "multi": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
+    };
+    return CdkAccordion;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Used to generate unique ID for each accordion item.
+ */
+var /** @type {?} */ nextId$1 = 0;
+var ɵ0 = undefined;
+/**
+ * An basic directive expected to be extended and decorated as a component.  Sets up all
+ * events and attributes needed to be managed by a CdkAccordion parent.
+ */
+var CdkAccordionItem = /** @class */ (function () {
+    function CdkAccordionItem(accordion, _changeDetectorRef, _expansionDispatcher) {
+        var _this = this;
+        this.accordion = accordion;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._expansionDispatcher = _expansionDispatcher;
+        /**
+         * Subscription to openAll/closeAll events.
+         */
+        this._openCloseAllSubscription = rxjs__WEBPACK_IMPORTED_MODULE_2__["Subscription"].EMPTY;
+        /**
+         * Event emitted every time the AccordionItem is closed.
+         */
+        this.closed = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /**
+         * Event emitted every time the AccordionItem is opened.
+         */
+        this.opened = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /**
+         * Event emitted when the AccordionItem is destroyed.
+         */
+        this.destroyed = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /**
+         * Emits whenever the expanded state of the accordion changes.
+         * Primarily used to facilitate two-way binding.
+         * \@docs-private
+         */
+        this.expandedChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /**
+         * The unique AccordionItem id.
+         */
+        this.id = "cdk-accordion-child-" + nextId$1++;
+        this._expanded = false;
+        this._disabled = false;
+        /**
+         * Unregister function for _expansionDispatcher.
+         */
+        this._removeUniqueSelectionListener = function () { };
+        this._removeUniqueSelectionListener =
+            _expansionDispatcher.listen(function (id, accordionId) {
+                if (_this.accordion && !_this.accordion.multi &&
+                    _this.accordion.id === accordionId && _this.id !== id) {
+                    _this.expanded = false;
+                }
+            });
+        // When an accordion item is hosted in an accordion, subscribe to open/close events.
+        if (this.accordion) {
+            this._openCloseAllSubscription = this._subscribeToOpenCloseAllActions();
+        }
+    }
+    Object.defineProperty(CdkAccordionItem.prototype, "expanded", {
+        get: /**
+         * Whether the AccordionItem is expanded.
+         * @return {?}
+         */
+        function () { return this._expanded; },
+        set: /**
+         * @param {?} expanded
+         * @return {?}
+         */
+        function (expanded) {
+            expanded = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_0__["coerceBooleanProperty"])(expanded);
+            // Only emit events and update the internal value if the value changes.
+            if (this._expanded !== expanded) {
+                this._expanded = expanded;
+                this.expandedChange.emit(expanded);
+                if (expanded) {
+                    this.opened.emit();
+                    /**
+                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordionItem,
+                     * the name value is the id of the accordion.
+                     */
+                    var /** @type {?} */ accordionId = this.accordion ? this.accordion.id : this.id;
+                    this._expansionDispatcher.notify(this.id, accordionId);
+                }
+                else {
+                    this.closed.emit();
+                }
+                // Ensures that the animation will run when the value is set outside of an `@Input`.
+                // This includes cases like the open, close and toggle methods.
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CdkAccordionItem.prototype, "disabled", {
+        get: /**
+         * Whether the AccordionItem is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} disabled
+         * @return {?}
+         */
+        function (disabled) { this._disabled = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_0__["coerceBooleanProperty"])(disabled); },
+        enumerable: true,
+        configurable: true
+    });
+    /** Emits an event for the accordion item being destroyed. */
+    /**
+     * Emits an event for the accordion item being destroyed.
+     * @return {?}
+     */
+    CdkAccordionItem.prototype.ngOnDestroy = /**
+     * Emits an event for the accordion item being destroyed.
+     * @return {?}
+     */
+    function () {
+        this.opened.complete();
+        this.closed.complete();
+        this.destroyed.emit();
+        this.destroyed.complete();
+        this._removeUniqueSelectionListener();
+        this._openCloseAllSubscription.unsubscribe();
+    };
+    /** Toggles the expanded state of the accordion item. */
+    /**
+     * Toggles the expanded state of the accordion item.
+     * @return {?}
+     */
+    CdkAccordionItem.prototype.toggle = /**
+     * Toggles the expanded state of the accordion item.
+     * @return {?}
+     */
+    function () {
+        if (!this.disabled) {
+            this.expanded = !this.expanded;
+        }
+    };
+    /** Sets the expanded state of the accordion item to false. */
+    /**
+     * Sets the expanded state of the accordion item to false.
+     * @return {?}
+     */
+    CdkAccordionItem.prototype.close = /**
+     * Sets the expanded state of the accordion item to false.
+     * @return {?}
+     */
+    function () {
+        if (!this.disabled) {
+            this.expanded = false;
+        }
+    };
+    /** Sets the expanded state of the accordion item to true. */
+    /**
+     * Sets the expanded state of the accordion item to true.
+     * @return {?}
+     */
+    CdkAccordionItem.prototype.open = /**
+     * Sets the expanded state of the accordion item to true.
+     * @return {?}
+     */
+    function () {
+        if (!this.disabled) {
+            this.expanded = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CdkAccordionItem.prototype._subscribeToOpenCloseAllActions = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.accordion._openCloseAllActions.subscribe(function (expanded) {
+            // Only change expanded state if item is enabled
+            if (!_this.disabled) {
+                _this.expanded = expanded;
+            }
+        });
+    };
+    CdkAccordionItem.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"], args: [{
+                    selector: 'cdk-accordion-item, [cdkAccordionItem]',
+                    exportAs: 'cdkAccordionItem',
+                    providers: [
+                        // Provide CdkAccordion as undefined to prevent nested accordion items from registering
+                        // to the same accordion.
+                        { provide: CdkAccordion, useValue: ɵ0 },
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    CdkAccordionItem.ctorParameters = function () { return [
+        { type: CdkAccordion, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["SkipSelf"] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], },
+        { type: _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_3__["UniqueSelectionDispatcher"], },
+    ]; };
+    CdkAccordionItem.propDecorators = {
+        "closed": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
+        "opened": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
+        "destroyed": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
+        "expandedChange": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] },],
+        "expanded": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
+        "disabled": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] },],
+    };
+    return CdkAccordionItem;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var CdkAccordionModule = /** @class */ (function () {
+    function CdkAccordionModule() {
+    }
+    CdkAccordionModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
+                    exports: [CdkAccordion, CdkAccordionItem],
+                    declarations: [CdkAccordion, CdkAccordionItem],
+                },] },
+    ];
+    return CdkAccordionModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+
+//# sourceMappingURL=accordion.es5.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@angular/cdk/esm5/bidi.es5.js":
 /*!****************************************************!*\
   !*** ./node_modules/@angular/cdk/esm5/bidi.es5.js ***!
@@ -8647,6 +9033,510 @@ function coerceCssPixelValue(value) {
 
 
 //# sourceMappingURL=coercion.es5.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@angular/cdk/esm5/collections.es5.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@angular/cdk/esm5/collections.es5.js ***!
+  \***********************************************************/
+/*! exports provided: UniqueSelectionDispatcher, ArrayDataSource, DataSource, SelectionModel, getMultipleValuesInSingleSelectionError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UniqueSelectionDispatcher", function() { return UniqueSelectionDispatcher; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayDataSource", function() { return ArrayDataSource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataSource", function() { return DataSource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectionModel", function() { return SelectionModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMultipleValuesInSingleSelectionError", function() { return getMultipleValuesInSingleSelectionError; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @abstract
+ * @template T
+ */
+var  /**
+ * @abstract
+ * @template T
+ */
+DataSource = /** @class */ (function () {
+    function DataSource() {
+    }
+    return DataSource;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * DataSource wrapper for a native array.
+ * @template T
+ */
+var  /**
+ * DataSource wrapper for a native array.
+ * @template T
+ */
+ArrayDataSource = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"])(ArrayDataSource, _super);
+    function ArrayDataSource(_data) {
+        var _this = _super.call(this) || this;
+        _this._data = _data;
+        return _this;
+    }
+    /**
+     * @return {?}
+     */
+    ArrayDataSource.prototype.connect = /**
+     * @return {?}
+     */
+    function () {
+        return this._data instanceof rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"] ? this._data : Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(this._data);
+    };
+    /**
+     * @return {?}
+     */
+    ArrayDataSource.prototype.disconnect = /**
+     * @return {?}
+     */
+    function () { };
+    return ArrayDataSource;
+}(DataSource));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Class to be used to power selecting one or more options from a list.
+ * @template T
+ */
+var  /**
+ * Class to be used to power selecting one or more options from a list.
+ * @template T
+ */
+SelectionModel = /** @class */ (function () {
+    function SelectionModel(_multiple, initiallySelectedValues, _emitChanges) {
+        if (_multiple === void 0) { _multiple = false; }
+        if (_emitChanges === void 0) { _emitChanges = true; }
+        var _this = this;
+        this._multiple = _multiple;
+        this._emitChanges = _emitChanges;
+        /**
+         * Currently-selected values.
+         */
+        this._selection = new Set();
+        /**
+         * Keeps track of the deselected options that haven't been emitted by the change event.
+         */
+        this._deselectedToEmit = [];
+        /**
+         * Keeps track of the selected options that haven't been emitted by the change event.
+         */
+        this._selectedToEmit = [];
+        /**
+         * Event emitted when the value has changed.
+         */
+        this.changed = this._emitChanges ? new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]() : null;
+        /**
+         * Event emitted when the value has changed.
+         * @deprecated Use `changed` instead.
+         * \@breaking-change 8.0.0 To be changed to `changed`
+         */
+        this.onChange = this.changed;
+        if (initiallySelectedValues && initiallySelectedValues.length) {
+            if (_multiple) {
+                initiallySelectedValues.forEach(function (value) { return _this._markSelected(value); });
+            }
+            else {
+                this._markSelected(initiallySelectedValues[0]);
+            }
+            // Clear the array in order to avoid firing the change event for preselected values.
+            this._selectedToEmit.length = 0;
+        }
+    }
+    Object.defineProperty(SelectionModel.prototype, "selected", {
+        /** Selected values. */
+        get: /**
+         * Selected values.
+         * @return {?}
+         */
+        function () {
+            if (!this._selected) {
+                this._selected = Array.from(this._selection.values());
+            }
+            return this._selected;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Selects a value or an array of values.
+     */
+    /**
+     * Selects a value or an array of values.
+     * @param {...?} values
+     * @return {?}
+     */
+    SelectionModel.prototype.select = /**
+     * Selects a value or an array of values.
+     * @param {...?} values
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var values = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            values[_i] = arguments[_i];
+        }
+        this._verifyValueAssignment(values);
+        values.forEach(function (value) { return _this._markSelected(value); });
+        this._emitChangeEvent();
+    };
+    /**
+     * Deselects a value or an array of values.
+     */
+    /**
+     * Deselects a value or an array of values.
+     * @param {...?} values
+     * @return {?}
+     */
+    SelectionModel.prototype.deselect = /**
+     * Deselects a value or an array of values.
+     * @param {...?} values
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var values = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            values[_i] = arguments[_i];
+        }
+        this._verifyValueAssignment(values);
+        values.forEach(function (value) { return _this._unmarkSelected(value); });
+        this._emitChangeEvent();
+    };
+    /**
+     * Toggles a value between selected and deselected.
+     */
+    /**
+     * Toggles a value between selected and deselected.
+     * @param {?} value
+     * @return {?}
+     */
+    SelectionModel.prototype.toggle = /**
+     * Toggles a value between selected and deselected.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.isSelected(value) ? this.deselect(value) : this.select(value);
+    };
+    /**
+     * Clears all of the selected values.
+     */
+    /**
+     * Clears all of the selected values.
+     * @return {?}
+     */
+    SelectionModel.prototype.clear = /**
+     * Clears all of the selected values.
+     * @return {?}
+     */
+    function () {
+        this._unmarkAll();
+        this._emitChangeEvent();
+    };
+    /**
+     * Determines whether a value is selected.
+     */
+    /**
+     * Determines whether a value is selected.
+     * @param {?} value
+     * @return {?}
+     */
+    SelectionModel.prototype.isSelected = /**
+     * Determines whether a value is selected.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return this._selection.has(value);
+    };
+    /**
+     * Determines whether the model does not have a value.
+     */
+    /**
+     * Determines whether the model does not have a value.
+     * @return {?}
+     */
+    SelectionModel.prototype.isEmpty = /**
+     * Determines whether the model does not have a value.
+     * @return {?}
+     */
+    function () {
+        return this._selection.size === 0;
+    };
+    /**
+     * Determines whether the model has a value.
+     */
+    /**
+     * Determines whether the model has a value.
+     * @return {?}
+     */
+    SelectionModel.prototype.hasValue = /**
+     * Determines whether the model has a value.
+     * @return {?}
+     */
+    function () {
+        return !this.isEmpty();
+    };
+    /**
+     * Sorts the selected values based on a predicate function.
+     */
+    /**
+     * Sorts the selected values based on a predicate function.
+     * @param {?=} predicate
+     * @return {?}
+     */
+    SelectionModel.prototype.sort = /**
+     * Sorts the selected values based on a predicate function.
+     * @param {?=} predicate
+     * @return {?}
+     */
+    function (predicate) {
+        if (this._multiple && this.selected) {
+            /** @type {?} */ ((this._selected)).sort(predicate);
+        }
+    };
+    /**
+     * Gets whether multiple values can be selected.
+     */
+    /**
+     * Gets whether multiple values can be selected.
+     * @return {?}
+     */
+    SelectionModel.prototype.isMultipleSelection = /**
+     * Gets whether multiple values can be selected.
+     * @return {?}
+     */
+    function () {
+        return this._multiple;
+    };
+    /**
+     * Emits a change event and clears the records of selected and deselected values.
+     * @return {?}
+     */
+    SelectionModel.prototype._emitChangeEvent = /**
+     * Emits a change event and clears the records of selected and deselected values.
+     * @return {?}
+     */
+    function () {
+        // Clear the selected values so they can be re-cached.
+        this._selected = null;
+        if (this._selectedToEmit.length || this._deselectedToEmit.length) {
+            if (this.changed) {
+                this.changed.next({
+                    source: this,
+                    added: this._selectedToEmit,
+                    removed: this._deselectedToEmit
+                });
+            }
+            this._deselectedToEmit = [];
+            this._selectedToEmit = [];
+        }
+    };
+    /**
+     * Selects a value.
+     * @param {?} value
+     * @return {?}
+     */
+    SelectionModel.prototype._markSelected = /**
+     * Selects a value.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        if (!this.isSelected(value)) {
+            if (!this._multiple) {
+                this._unmarkAll();
+            }
+            this._selection.add(value);
+            if (this._emitChanges) {
+                this._selectedToEmit.push(value);
+            }
+        }
+    };
+    /**
+     * Deselects a value.
+     * @param {?} value
+     * @return {?}
+     */
+    SelectionModel.prototype._unmarkSelected = /**
+     * Deselects a value.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        if (this.isSelected(value)) {
+            this._selection.delete(value);
+            if (this._emitChanges) {
+                this._deselectedToEmit.push(value);
+            }
+        }
+    };
+    /**
+     * Clears out the selected values.
+     * @return {?}
+     */
+    SelectionModel.prototype._unmarkAll = /**
+     * Clears out the selected values.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this.isEmpty()) {
+            this._selection.forEach(function (value) { return _this._unmarkSelected(value); });
+        }
+    };
+    /**
+     * Verifies the value assignment and throws an error if the specified value array is
+     * including multiple values while the selection model is not supporting multiple values.
+     * @param {?} values
+     * @return {?}
+     */
+    SelectionModel.prototype._verifyValueAssignment = /**
+     * Verifies the value assignment and throws an error if the specified value array is
+     * including multiple values while the selection model is not supporting multiple values.
+     * @param {?} values
+     * @return {?}
+     */
+    function (values) {
+        if (values.length > 1 && !this._multiple) {
+            throw getMultipleValuesInSingleSelectionError();
+        }
+    };
+    return SelectionModel;
+}());
+/**
+ * Returns an error that reports that multiple values are passed into a selection model
+ * with a single value.
+ * @return {?}
+ */
+function getMultipleValuesInSingleSelectionError() {
+    return Error('Cannot pass multiple values into SelectionModel with single-value mode.');
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Class to coordinate unique selection based on name.
+ * Intended to be consumed as an Angular service.
+ * This service is needed because native radio change events are only fired on the item currently
+ * being selected, and we still need to uncheck the previous selection.
+ *
+ * This service does not *store* any IDs and names because they may change at any time, so it is
+ * less error-prone if they are simply passed through when the events occur.
+ */
+var UniqueSelectionDispatcher = /** @class */ (function () {
+    function UniqueSelectionDispatcher() {
+        this._listeners = [];
+    }
+    /**
+     * Notify other items that selection for the given name has been set.
+     * @param id ID of the item.
+     * @param name Name of the item.
+     */
+    /**
+     * Notify other items that selection for the given name has been set.
+     * @param {?} id ID of the item.
+     * @param {?} name Name of the item.
+     * @return {?}
+     */
+    UniqueSelectionDispatcher.prototype.notify = /**
+     * Notify other items that selection for the given name has been set.
+     * @param {?} id ID of the item.
+     * @param {?} name Name of the item.
+     * @return {?}
+     */
+    function (id, name) {
+        for (var _i = 0, _a = this._listeners; _i < _a.length; _i++) {
+            var listener = _a[_i];
+            listener(id, name);
+        }
+    };
+    /**
+     * Listen for future changes to item selection.
+     * @return Function used to deregister listener
+     */
+    /**
+     * Listen for future changes to item selection.
+     * @param {?} listener
+     * @return {?} Function used to deregister listener
+     */
+    UniqueSelectionDispatcher.prototype.listen = /**
+     * Listen for future changes to item selection.
+     * @param {?} listener
+     * @return {?} Function used to deregister listener
+     */
+    function (listener) {
+        var _this = this;
+        this._listeners.push(listener);
+        return function () {
+            _this._listeners = _this._listeners.filter(function (registered) {
+                return listener !== registered;
+            });
+        };
+    };
+    /**
+     * @return {?}
+     */
+    UniqueSelectionDispatcher.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._listeners = [];
+    };
+    UniqueSelectionDispatcher.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"], args: [{ providedIn: 'root' },] },
+    ];
+    /** @nocollapse */ UniqueSelectionDispatcher.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["defineInjectable"])({ factory: function UniqueSelectionDispatcher_Factory() { return new UniqueSelectionDispatcher(); }, token: UniqueSelectionDispatcher, providedIn: "root" });
+    return UniqueSelectionDispatcher;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+
+//# sourceMappingURL=collections.es5.js.map
 
 
 /***/ }),
@@ -68138,6 +69028,742 @@ OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
 
 
 //# sourceMappingURL=core.es5.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@angular/material/esm5/expansion.es5.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@angular/material/esm5/expansion.es5.js ***!
+  \**************************************************************/
+/*! exports provided: MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionModule", function() { return MatExpansionModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatAccordion", function() { return MatAccordion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_ACCORDION", function() { return MAT_ACCORDION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_CdkAccordionItem", function() { return _CdkAccordionItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanel", function() { return MatExpansionPanel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanelActionRow", function() { return MatExpansionPanelActionRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanelHeader", function() { return MatExpansionPanelHeader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanelDescription", function() { return MatExpansionPanelDescription; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanelTitle", function() { return MatExpansionPanelTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatExpansionPanelContent", function() { return MatExpansionPanelContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EXPANSION_PANEL_ANIMATION_TIMING", function() { return EXPANSION_PANEL_ANIMATION_TIMING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matExpansionAnimations", function() { return matExpansionAnimations; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_cdk_accordion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/accordion */ "./node_modules/@angular/cdk/esm5/accordion.es5.js");
+/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/cdk/coercion */ "./node_modules/@angular/cdk/esm5/coercion.es5.js");
+/* harmony import */ var _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/collections */ "./node_modules/@angular/cdk/esm5/collections.es5.js");
+/* harmony import */ var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/cdk/portal */ "./node_modules/@angular/cdk/esm5/portal.es5.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/cdk/a11y */ "./node_modules/@angular/cdk/esm5/a11y.es5.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
+ * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
+ */
+var /** @type {?} */ MAT_ACCORDION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('MAT_ACCORDION');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Time and timing curve for expansion panel animations.
+ */
+var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/**
+ * Animations used by the Material expansion panel.
+ */
+var /** @type {?} */ matExpansionAnimations = {
+    /** Animation that rotates the indicator arrow. */
+    indicatorRotate: Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('indicatorRotate', [
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ transform: 'rotate(0deg)' })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ transform: 'rotate(180deg)' })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])('expanded <=> collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animate"])(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel header height. */
+    expansionHeaderHeight: Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('expansionHeight', [
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
+            height: '{{collapsedHeight}}',
+        }), {
+            params: { collapsedHeight: '48px' },
+        }),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
+            height: '{{expandedHeight}}'
+        }), {
+            params: { expandedHeight: '64px' }
+        }),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])('expanded <=> collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["group"])([
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["query"])('@indicatorRotate', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animateChild"])(), { optional: true }),
+            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animate"])(EXPANSION_PANEL_ANIMATION_TIMING),
+        ])),
+    ]),
+    /** Animation that expands and collapses the panel content. */
+    bodyExpansion: Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('bodyExpansion', [
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ height: '0px', visibility: 'hidden' })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('expanded', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ height: '*', visibility: 'visible' })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])('expanded <=> collapsed', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["animate"])(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], },
+    ]; };
+    return MatExpansionPanelContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkAccordionItem = _angular_cdk_accordion__WEBPACK_IMPORTED_MODULE_3__["CdkAccordionItem"];
+/**
+ * Counter for generating unique element ids.
+ */
+var /** @type {?} */ uniqueId = 0;
+var ɵ0 = undefined;
+/**
+ * `<mat-expansion-panel>`
+ *
+ * This component can be used as a single element to show expandable content, or as one of
+ * multiple children of an element with the MatAccordion directive attached.
+ */
+var MatExpansionPanel = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(MatExpansionPanel, _super);
+    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document) {
+        var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
+        _this._viewContainerRef = _viewContainerRef;
+        _this._hideToggle = false;
+        /**
+         * Stream that emits for changes in `\@Input` properties.
+         */
+        _this._inputChanges = new rxjs__WEBPACK_IMPORTED_MODULE_8__["Subject"]();
+        /**
+         * ID for the associated header element. Used for a11y labelling.
+         */
+        _this._headerId = "mat-expansion-panel-header-" + uniqueId++;
+        _this.accordion = accordion;
+        _this._document = _document;
+        return _this;
+    }
+    Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
+        get: /**
+         * Whether the toggle indicator should be hidden.
+         * @return {?}
+         */
+        function () {
+            return this._hideToggle || (this.accordion && this.accordion.hideToggle);
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._hideToggle = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_4__["coerceBooleanProperty"])(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Determines whether the expansion panel should have spacing between it and its siblings. */
+    /**
+     * Determines whether the expansion panel should have spacing between it and its siblings.
+     * @return {?}
+     */
+    MatExpansionPanel.prototype._hasSpacing = /**
+     * Determines whether the expansion panel should have spacing between it and its siblings.
+     * @return {?}
+     */
+    function () {
+        if (this.accordion) {
+            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
+            // the [displayMode] input changes, the change detection will also cover the host bindings
+            // of this expansion panel.
+            return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
+        }
+        return false;
+    };
+    /** Gets the expanded state string. */
+    /**
+     * Gets the expanded state string.
+     * @return {?}
+     */
+    MatExpansionPanel.prototype._getExpandedState = /**
+     * Gets the expanded state string.
+     * @return {?}
+     */
+    function () {
+        return this.expanded ? 'expanded' : 'collapsed';
+    };
+    /**
+     * @return {?}
+     */
+    MatExpansionPanel.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this._lazyContent) {
+            // Render the content as soon as the panel becomes open.
+            this.opened.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["startWith"])(/** @type {?} */ ((null))), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["filter"])(function () { return _this.expanded && !_this._portal; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["take"])(1)).subscribe(function () {
+                _this._portal = new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_6__["TemplatePortal"](_this._lazyContent._template, _this._viewContainerRef);
+            });
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatExpansionPanel.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this._inputChanges.next(changes);
+    };
+    /**
+     * @return {?}
+     */
+    MatExpansionPanel.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        _super.prototype.ngOnDestroy.call(this);
+        this._inputChanges.complete();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatExpansionPanel.prototype._bodyAnimation = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        var /** @type {?} */ classList = event.element.classList;
+        var /** @type {?} */ cssClass = 'mat-expanded';
+        var phaseName = event.phaseName, toState = event.toState;
+        // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
+        // order to prevent the cases where switching too early would cause the animation to jump.
+        // Note that we do it directly on the DOM element to avoid the slight delay that comes
+        // with doing it via change detection.
+        if (phaseName === 'done' && toState === 'expanded') {
+            classList.add(cssClass);
+        }
+        else if (phaseName === 'start' && toState === 'collapsed') {
+            classList.remove(cssClass);
+        }
+    };
+    /** Checks whether the expansion panel's content contains the currently-focused element. */
+    /**
+     * Checks whether the expansion panel's content contains the currently-focused element.
+     * @return {?}
+     */
+    MatExpansionPanel.prototype._containsFocus = /**
+     * Checks whether the expansion panel's content contains the currently-focused element.
+     * @return {?}
+     */
+    function () {
+        if (this._body && this._document) {
+            var /** @type {?} */ focusedElement = this._document.activeElement;
+            var /** @type {?} */ bodyElement = this._body.nativeElement;
+            return focusedElement === bodyElement || bodyElement.contains(focusedElement);
+        }
+        return false;
+    };
+    MatExpansionPanel.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
+                    selector: 'mat-expansion-panel',
+                    exportAs: 'matExpansionPanel',
+                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" (@bodyExpansion.start)=\"_bodyAnimation($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
+                    inputs: ['disabled', 'expanded'],
+                    outputs: ['opened', 'closed', 'expandedChange'],
+                    animations: [matExpansionAnimations.bodyExpansion],
+                    providers: [
+                        // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+                        // to the same accordion.
+                        { provide: MAT_ACCORDION, useValue: ɵ0 },
+                    ],
+                    host: {
+                        'class': 'mat-expansion-panel',
+                        '[class.mat-expanded]': 'expanded',
+                        '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanel.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [MAT_ACCORDION,] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
+        { type: _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_5__["UniqueSelectionDispatcher"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"], },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["DOCUMENT"],] },] },
+    ]; };
+    MatExpansionPanel.propDecorators = {
+        "hideToggle": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "_lazyContent": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChild"], args: [MatExpansionPanelContent,] },],
+        "_body": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['body',] },],
+    };
+    return MatExpansionPanel;
+}(_angular_cdk_accordion__WEBPACK_IMPORTED_MODULE_3__["CdkAccordionItem"]));
+var MatExpansionPanelActionRow = /** @class */ (function () {
+    function MatExpansionPanelActionRow() {
+    }
+    MatExpansionPanelActionRow.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: 'mat-action-row',
+                    host: {
+                        class: 'mat-action-row'
+                    }
+                },] },
+    ];
+    return MatExpansionPanelActionRow;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * `<mat-expansion-panel-header>`
+ *
+ * This component corresponds to the header element of an `<mat-expansion-panel>`.
+ */
+var MatExpansionPanelHeader = /** @class */ (function () {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
+        var _this = this;
+        this.panel = panel;
+        this._element = _element;
+        this._focusMonitor = _focusMonitor;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._parentChangeSubscription = rxjs__WEBPACK_IMPORTED_MODULE_8__["Subscription"].EMPTY;
+        var /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+            panel.accordion._stateChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["filter"])(function (changes) { return !!changes["hideToggle"]; })) : rxjs__WEBPACK_IMPORTED_MODULE_8__["EMPTY"];
+        // Since the toggle state depends on an @Input on the panel, we
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = Object(rxjs__WEBPACK_IMPORTED_MODULE_8__["merge"])(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["filter"])(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        // Avoids focus being lost if the panel contained the focused element and was closed.
+        panel.closed
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["filter"])(function () { return panel._containsFocus(); }))
+            .subscribe(function () { return _focusMonitor.focusVia(_element.nativeElement, 'program'); });
+        _focusMonitor.monitor(_element.nativeElement).subscribe(function (origin) {
+            if (origin && panel.accordion) {
+                panel.accordion._handleHeaderFocus(_this);
+            }
+        });
+    }
+    Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
+        /**
+         * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
+         * @docs-private
+         */
+        get: /**
+         * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
+         * \@docs-private
+         * @return {?}
+         */
+        function () {
+            return this.panel.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Toggles the expanded state of the panel. */
+    /**
+     * Toggles the expanded state of the panel.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._toggle = /**
+     * Toggles the expanded state of the panel.
+     * @return {?}
+     */
+    function () {
+        this.panel.toggle();
+    };
+    /** Gets whether the panel is expanded. */
+    /**
+     * Gets whether the panel is expanded.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._isExpanded = /**
+     * Gets whether the panel is expanded.
+     * @return {?}
+     */
+    function () {
+        return this.panel.expanded;
+    };
+    /** Gets the expanded state string of the panel. */
+    /**
+     * Gets the expanded state string of the panel.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._getExpandedState = /**
+     * Gets the expanded state string of the panel.
+     * @return {?}
+     */
+    function () {
+        return this.panel._getExpandedState();
+    };
+    /** Gets the panel id. */
+    /**
+     * Gets the panel id.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._getPanelId = /**
+     * Gets the panel id.
+     * @return {?}
+     */
+    function () {
+        return this.panel.id;
+    };
+    /** Gets whether the expand indicator should be shown. */
+    /**
+     * Gets whether the expand indicator should be shown.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._showToggle = /**
+     * Gets whether the expand indicator should be shown.
+     * @return {?}
+     */
+    function () {
+        return !this.panel.hideToggle && !this.panel.disabled;
+    };
+    /** Handle keydown event calling to toggle() if appropriate. */
+    /**
+     * Handle keydown event calling to toggle() if appropriate.
+     * @param {?} event
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._keydown = /**
+     * Handle keydown event calling to toggle() if appropriate.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        switch (event.keyCode) {
+            // Toggle for space and enter keys.
+            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__["SPACE"]:
+            case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__["ENTER"]:
+                event.preventDefault();
+                this._toggle();
+                break;
+            default:
+                if (this.panel.accordion) {
+                    this.panel.accordion._handleHeaderKeydown(event);
+                }
+                return;
+        }
+    };
+    /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * @param origin Origin of the action that triggered the focus.
+     * @docs-private
+     */
+    /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * \@docs-private
+     * @param {?=} origin Origin of the action that triggered the focus.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype.focus = /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * \@docs-private
+     * @param {?=} origin Origin of the action that triggered the focus.
+     * @return {?}
+     */
+    function (origin) {
+        if (origin === void 0) { origin = 'program'; }
+        this._focusMonitor.focusVia(this._element.nativeElement, origin);
+    };
+    /**
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._parentChangeSubscription.unsubscribe();
+        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+    };
+    MatExpansionPanelHeader.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{selector: 'mat-expansion-panel-header',
+                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                    template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
+                    animations: [
+                        matExpansionAnimations.indicatorRotate,
+                        matExpansionAnimations.expansionHeaderHeight
+                    ],
+                    host: {
+                        'class': 'mat-expansion-panel-header',
+                        'role': 'button',
+                        '[attr.id]': 'panel._headerId',
+                        '[attr.tabindex]': 'disabled ? -1 : 0',
+                        '[attr.aria-controls]': '_getPanelId()',
+                        '[attr.aria-expanded]': '_isExpanded()',
+                        '[attr.aria-disabled]': 'panel.disabled',
+                        '[class.mat-expanded]': '_isExpanded()',
+                        '(click)': '_toggle()',
+                        '(keydown)': '_keydown($event)',
+                        '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelHeader.ctorParameters = function () { return [
+        { type: MatExpansionPanel, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Host"] },] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], },
+        { type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_10__["FocusMonitor"], },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
+    ]; };
+    MatExpansionPanelHeader.propDecorators = {
+        "expandedHeight": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "collapsedHeight": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+    };
+    return MatExpansionPanelHeader;
+}());
+/**
+ * `<mat-panel-description>`
+ *
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
+ */
+var MatExpansionPanelDescription = /** @class */ (function () {
+    function MatExpansionPanelDescription() {
+    }
+    MatExpansionPanelDescription.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: 'mat-panel-description',
+                    host: {
+                        class: 'mat-expansion-panel-header-description'
+                    }
+                },] },
+    ];
+    return MatExpansionPanelDescription;
+}());
+/**
+ * `<mat-panel-title>`
+ *
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
+ */
+var MatExpansionPanelTitle = /** @class */ (function () {
+    function MatExpansionPanelTitle() {
+    }
+    MatExpansionPanelTitle.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: 'mat-panel-title',
+                    host: {
+                        class: 'mat-expansion-panel-header-title'
+                    }
+                },] },
+    ];
+    return MatExpansionPanelTitle;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Directive for a Material Design Accordion.
+ */
+var MatAccordion = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_2__["__extends"])(MatAccordion, _super);
+    function MatAccordion() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._hideToggle = false;
+        /**
+         * Display mode used for all expansion panels in the accordion. Currently two display
+         * modes exist:
+         *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+         *     panel at a different elevation from the rest of the accordion.
+         *  flat - no spacing is placed around expanded panels, showing all panels at the same
+         *     elevation.
+         */
+        _this.displayMode = 'default';
+        return _this;
+    }
+    Object.defineProperty(MatAccordion.prototype, "hideToggle", {
+        get: /**
+         * Whether the expansion indicator should be hidden.
+         * @return {?}
+         */
+        function () { return this._hideToggle; },
+        set: /**
+         * @param {?} show
+         * @return {?}
+         */
+        function (show) { this._hideToggle = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_4__["coerceBooleanProperty"])(show); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatAccordion.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        this._keyManager = new _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_10__["FocusKeyManager"](this._headers).withWrap();
+    };
+    /** Handles keyboard events coming in from the panel headers. */
+    /**
+     * Handles keyboard events coming in from the panel headers.
+     * @param {?} event
+     * @return {?}
+     */
+    MatAccordion.prototype._handleHeaderKeydown = /**
+     * Handles keyboard events coming in from the panel headers.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        var keyCode = event.keyCode;
+        var /** @type {?} */ manager = this._keyManager;
+        if (keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__["HOME"]) {
+            manager.setFirstItemActive();
+            event.preventDefault();
+        }
+        else if (keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_11__["END"]) {
+            manager.setLastItemActive();
+            event.preventDefault();
+        }
+        else {
+            this._keyManager.onKeydown(event);
+        }
+    };
+    /**
+     * @param {?} header
+     * @return {?}
+     */
+    MatAccordion.prototype._handleHeaderFocus = /**
+     * @param {?} header
+     * @return {?}
+     */
+    function (header) {
+        this._keyManager.updateActiveItem(header);
+    };
+    MatAccordion.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: 'mat-accordion',
+                    exportAs: 'matAccordion',
+                    inputs: ['multi'],
+                    providers: [{
+                            provide: MAT_ACCORDION,
+                            useExisting: MatAccordion
+                        }],
+                    host: {
+                        class: 'mat-accordion'
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    MatAccordion.propDecorators = {
+        "_headers": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ContentChildren"], args: [MatExpansionPanelHeader, { descendants: true },] },],
+        "hideToggle": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+        "displayMode": [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] },],
+    };
+    return MatAccordion;
+}(_angular_cdk_accordion__WEBPACK_IMPORTED_MODULE_3__["CdkAccordion"]));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var MatExpansionModule = /** @class */ (function () {
+    function MatExpansionModule() {
+    }
+    MatExpansionModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                    imports: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["CommonModule"], _angular_cdk_accordion__WEBPACK_IMPORTED_MODULE_3__["CdkAccordionModule"], _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_6__["PortalModule"]],
+                    exports: [
+                        MatAccordion,
+                        MatExpansionPanel,
+                        MatExpansionPanelActionRow,
+                        MatExpansionPanelHeader,
+                        MatExpansionPanelTitle,
+                        MatExpansionPanelDescription,
+                        MatExpansionPanelContent,
+                    ],
+                    declarations: [
+                        MatAccordion,
+                        MatExpansionPanel,
+                        MatExpansionPanelActionRow,
+                        MatExpansionPanelHeader,
+                        MatExpansionPanelTitle,
+                        MatExpansionPanelDescription,
+                        MatExpansionPanelContent,
+                    ],
+                },] },
+    ];
+    return MatExpansionModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+
+//# sourceMappingURL=expansion.es5.js.map
 
 
 /***/ }),
