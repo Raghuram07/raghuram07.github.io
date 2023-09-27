@@ -501,7 +501,7 @@ var HomeComponent = /** @class */ (function () {
         this.profileData = _data_profile_json__WEBPACK_IMPORTED_MODULE_4__;
         this.projectData = _data_projects_json__WEBPACK_IMPORTED_MODULE_5__;
         if (_data_profile_json__WEBPACK_IMPORTED_MODULE_4__.announce.length != 0) {
-            this.openDialog(_data_profile_json__WEBPACK_IMPORTED_MODULE_4__.announce);
+            //this.openDialog(profileData.announce)
         }
     }
     HomeComponent.prototype.ngOnInit = function () {
