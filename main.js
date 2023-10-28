@@ -249,7 +249,7 @@ module.exports = "/* =======================================================\n*\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"colorlib-page\">\n  <div class=\"container-wrap\">\n      <a href=\"#\" class=\"js-colorlib-nav-toggle colorlib-nav-toggle\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n          <i></i>\n      </a> \n      <app-sidebar></app-sidebar>\n      <router-outlet></router-outlet>\n  </div>\n</div>\n"
+module.exports = "<div id=\"colorlib-page\">\n  <div class=\"container-wrap\">\n    <a\n      href=\"#\"\n      class=\"js-colorlib-nav-toggle colorlib-nav-toggle\"\n      data-toggle=\"collapse\"\n      data-target=\"#navbar\"\n      aria-expanded=\"false\"\n      aria-controls=\"navbar\"\n    >\n      <i></i>\n    </a>\n    <app-sidebar></app-sidebar>\n    <router-outlet></router-outlet>\n  </div>\n</div>\n<!-- Google tag (gtag.js) -->\n<script\n  async\n  src=\"https://www.googletagmanager.com/gtag/js?id=G-QCJXQWNMX7\"\n></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag() {\n    dataLayer.push(arguments);\n  }\n  gtag(\"js\", new Date());\n\n  gtag(\"config\", \"G-QCJXQWNMX7\");\n</script>\n"
 
 /***/ }),
 
