@@ -273,7 +273,7 @@ figure {
   margin: 0 auto; }
 
 #colorlib-main {
-  width: calc(100% - 300px);
+  width: calc(100% - 0px);
   float: right;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
@@ -430,7 +430,6 @@ body.offcanvas {
 .colorlib-education,
 .colorlib-blog,
 .colorlib-work,
-.colorlib-about,
 .colorlib-installation,
 .colorlib-services,
 .colorlib-footer,
